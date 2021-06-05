@@ -1,0 +1,14 @@
+<h2>Clientes:</h2>
+
+{% if lista_clientes %}
+    <ul>
+        {% for cliente in lista_clientes %}
+            <li>{{ cliente.id }}: 
+                {{ cliente.nombre }} ---
+                cuentas: {{ cliente.cuenta_set.count }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+<h4>No hay clientes que mostrar :c</h4>
+{% endif %}

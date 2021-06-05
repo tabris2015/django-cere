@@ -13,4 +13,4 @@ class Cliente(models.Model):
 class Cuenta(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     categoria = models.CharField(max_length=30, default='normal')
-    balance = models.IntegerField()
+    balance = models.IntegerField(default=0)
