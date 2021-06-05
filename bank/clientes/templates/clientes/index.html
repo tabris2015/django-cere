@@ -1,14 +1,36 @@
-<h2>Clientes:</h2>
-
-{% if lista_clientes %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Clientes:</h2>
+    
+    <form action="{% url 'clientes:crear_cliente' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" name="nombre" id="nombre"><label for="nombre">Nombre</label>
+        <input type="submit" value="Crear Cliente">
+    </form>
+    
+    {% if lista_clientes %}
     <ul>
         {% for cliente in lista_clientes %}
-            <li>{{ cliente.id }}: 
-                {{ cliente.nombre }} ---
-                cuentas: {{ cliente.cuenta_set.count }}
-            </li>
+        <li>{{ cliente.id }}: 
+            <a href="{% url 'clientes:detalle' cliente.id %}">{{ cliente.nombre }}</a>
+            ---
+            cuentas: {{ cliente.cuenta_set.count }} 
+            <a href="{% url 'clientes:borrar_cliente' cliente.id %}">Borrar</a>
+        </li>
         {% endfor %}
     </ul>
-{% else %}
-<h4>No hay clientes que mostrar :c</h4>
-{% endif %}
+    {% else %}
+    <h4>No hay clientes que mostrar :c</h4>
+    {% endif %}
+</body>
+<script>
+    
+</script>
+</html>

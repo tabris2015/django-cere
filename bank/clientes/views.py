@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
+from django.urls import reverse
 from .models import Cliente, Cuenta
 
 
@@ -14,10 +15,11 @@ def index(request):
     return render(request, 'clientes/index.html', context)
 
 
-def crear_cliente(request, nombre):
+def crear_cliente(request):
+    nombre = request.POST['nombre']
     nuevo_cliente = Cliente(nombre=nombre, fecha_registro=timezone.now())
     nuevo_cliente.save()
-    return HttpResponse('cliente creado!', status=201)
+    return HttpResponseRedirect(reverse('clientes:index'))
 
 
 def detalle(request, id_cliente):
@@ -29,9 +31,23 @@ def detalle(request, id_cliente):
     return render(request, 'clientes/detalle.html', context)
 
 
-def crear_cuenta(request, id_cliente, categoria):
+def crear_cuenta(request, id_cliente):
+    categoria = request.POST['categoria']
     # verificar si el cliente existe
     cliente = get_object_or_404(Cliente, pk=id_cliente)
     cuenta = Cuenta(categoria=categoria, cliente=cliente)
     cuenta.save()
-    return HttpResponse('cuenta creada!', status=201)
+    return HttpResponseRedirect(reverse('clientes:detalle', args=[id_cliente]))
+
+
+def borrar_cliente(request, id_cliente):
+    cliente = get_object_or_404(Cliente, pk=id_cliente)
+    cliente.delete()    # se elimina de la DB
+    return HttpResponseRedirect(reverse('clientes:index'))
+
+
+def borrar_cuenta(request, id_cliente, id_cuenta):
+    cliente = get_object_or_404(Cliente, pk=id_cliente)
+    cuenta = get_object_or_404(Cuenta, pk=id_cuenta)
+    cuenta.delete()
+    return HttpResponseRedirect(reverse('clientes:detalle', args=[id_cliente]))
