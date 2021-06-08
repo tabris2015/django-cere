@@ -1,0 +1,15 @@
+<form action="{% url 'lista_tareas:crear_tarea' %}" method="POST">
+    {% csrf_token %}
+    <input type="text" name="texto" id="texto"><label for="texto">Tarea</label>
+    <input type="text" name="prioridad" id="prioridad"><label for="prioridad">Prioridad</label>
+    <input type="submit" value="Crear Tarea">
+</form>
+{% if lista_tareas %}
+    <ol>
+        {% for tarea in lista_tareas %}
+            <li>{{ tarea.texto }} --- Prioridad: {{ tarea.prioridad }}</li>
+        {% endfor %}
+    </ol>
+{% else %}
+    <h4>No hay tareas que mostrar :)</h4>
+{% endif %}
