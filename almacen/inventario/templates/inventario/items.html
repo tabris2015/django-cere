@@ -1,0 +1,30 @@
+<form action="{% url 'inventario:items' %}" method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Crear Item">
+</form>
+
+{% if items %}
+    <table border="1">
+        <tr>
+            <th>Nombre</th>
+            <th>Marca</th>
+            <th>Categoria</th>
+            <th>Encargado</th>
+            <th>Cantidad</th>
+            <th>Fecha Creación</th>
+        </tr>
+        {% for item in items %}
+            <tr>
+                <td>{{ item.nombre }}</td>
+                <td>{{ item.marca }}</td>
+                <td>{{ item.categoria }}</td>
+                <td>{{ item.encargado }}</td>
+                <td>{{ item.cantidad }}</td>
+                <td>{{ item.fecha_creacion }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <h3>No existen items!</h3>
+{% endif %}
