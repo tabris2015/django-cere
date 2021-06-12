@@ -10,18 +10,14 @@
             <th>Nombre</th>
             <th>Marca</th>
             <th>Categoria</th>
-            <th>Encargado</th>
-            <th>Cantidad</th>
-            <th>Fecha Creación</th>
+            <th>Detalle</th>
         </tr>
         {% for item in items %}
             <tr>
                 <td>{{ item.nombre }}</td>
                 <td>{{ item.marca }}</td>
                 <td>{{ item.categoria }}</td>
-                <td>{{ item.encargado }}</td>
-                <td>{{ item.cantidad }}</td>
-                <td>{{ item.fecha_creacion }}</td>
+                <td><a href="{% url 'inventario:detalle_item' item.id%}">Detalle</a></td>
             </tr>
         {% endfor %}
     </table>

@@ -1,0 +1,22 @@
+<form action="{% url 'inventario:categorias' %}" method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Crear Categoria">
+</form>
+
+{% if categorias %}
+    <table border="1">
+        <tr>
+            <th>Nombre</th>
+            <th>Fecha Creación</th>
+        </tr>
+        {% for categoria in categorias %}
+            <tr>
+                <td>{{ categoria.nombre }}</td>
+                <td>{{ categoria.fecha_creacion }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <h3>No existen categorias!</h3>
+{% endif %}

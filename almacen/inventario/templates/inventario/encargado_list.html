@@ -1,0 +1,16 @@
+{% if encargados %}
+    <table border="1">
+        <tr>
+            <th>Nombre</th>
+            <th>Carrera</th>
+        </tr>
+        {% for encargado in encargados %}
+            <tr>
+                <td><a href="{% url 'inventario:detalle_encargado' encargado.id %}">{{ encargado.nombre }}</a></td>
+                <td>{{ encargado.carrera }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <h3>No existen encargados!</h3>
+{% endif %}
