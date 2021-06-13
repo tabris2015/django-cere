@@ -1,5 +1,5 @@
 #!/bin/sh
-sleep 2
+sleep 10
 python manage.py migrate
 python manage.py collectstatic
 python manage.py runscript poblar_db
