@@ -1,16 +1,6 @@
 version: "3.9"
 
 services:
-  nginx:
-    build: ./nginx
-    ports:
-      - 1300:80
-    volumes:
-      - static_volume:/app/static
-    depends_on:
-      - web
-    restart: "on-failure"
-
   web:
     build: .
     command: ./start.sh
@@ -18,8 +8,8 @@ services:
     - .:/webservice:rw
     - static_volume:/app/static
     image: laboratorio
-    expose:
-      - 8000
+    ports:
+      - 8000:8000
     restart: "on-failure"
     depends_on:
       - db

@@ -19,16 +19,23 @@ lista_categorias = [
 
 
 def crear_usuarios():
+    if User.objects.count() > 0:
+        return
     User.objects.create_superuser(username='admin', email='a@d.min', password='admin')
 
 
 def crear_encargados():
+    if Encargado.objects.count() > 0:
+        return
+
     for encargado_dic in lista_encargados:
         encargado = Encargado(**encargado_dic)
         encargado.save()
 
 
 def crear_categorias():
+    if Categoria.objects.count() > 0:
+        return
     for cat in lista_categorias:
         categoria = Categoria(nombre=cat)
         categoria.save()
