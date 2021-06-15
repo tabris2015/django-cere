@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    restart: "on-failure"
+
+  django:
+    build: .
+    command: ./start.sh
+    ports:
+      - 8002:8002
+    restart: "on-failure"
+    depends_on:
+      - db
